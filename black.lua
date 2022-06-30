@@ -890,6 +890,37 @@ if Redis:sismember(black..'BaN:In:Tuasl',msg.sender.user_id) then
 return false 
 end
 if msg.id then
+if msg.content.photo then
+if msg.content.photo.sizes[1].photo.remote.id then
+idPhoto = msg.content.photo.sizes[1].photo.remote.id
+elseif msg.content.photo.sizes[2].photo.remote.id then
+idPhoto = msg.content.photo.sizes[2].photo.remote.id
+elseif msg.content.photo.sizes[3].photo.remote.id then
+idPhoto = msg.content.photo.sizes[3].photo.remote.id
+end
+end
+if idPhoto == "" then
+elseif not Redis:sismember(black.."fw12",msg.sender.user_id) then
+local TestText = "✯︙حسنا عزيزي تم ارسال السكرين الى المطور انتظر للتأكد من التحويل"
+send(msg.chat_id,msg.id,TestText)
+local uu = LuaTele.getUser(msg.sender.user_id)
+if uu.username then
+username = uu.username
+else
+username = ""
+end
+if username == "" then
+sudo_state = "["..uu.first_name.."](tg://user?id="..msg.sender.user_id..")" 
+else
+sudo_state = "[@"..username.."]" 
+end
+LuaTele.sendPhoto(Sudo_Id, msg.id, idPhoto)
+local TestText = "✯︙تم ارسال اليك سكرين للفحص من التحويل  \n السكرين فوق هذا الرساله مباشرة"
+send(Sudo_Id,msg.id,TestText)
+Redis:sadd(black.."fw12",msg.sender.user_id)
+
+end
+
 Redis:setex(black.."Twasl:UserId"..msg.date,172800,msg.sender.user_id)
 LuaTele.forwardMessages(Sudo_Id, msg.chat_id, msg.id,0,0,true,false,false)
 end   
@@ -901,7 +932,7 @@ end
 if text and Redis:get(black.."free:bot") then
 return send(msg.chat_id,msg.id,"➢ الوضع المجاني معطل من قبل مطور الصانع")
 end
-if text == "/start" then
+if text == "/start" or text == "رجوع ✖️" then
 if not Redis:sismember(black.."total",msg.sender.user_id) then
 Redis:sadd(black.."total",msg.sender.user_id)
 end
@@ -921,11 +952,52 @@ data = {
 }
 }
 send(msg.chat_id,msg.id,"✯︙ اهلا بك عزيزي في مصنع البوتات","html",true, false, false, true, reply_markup)
+Redis:sadd(black.."fw11",msg.sender.user_id)
 return false 
 end
 if text == "انشاء بوت مدفوع ✯" then
-send(msg.chat_id,msg.id,"@Q0OO0")
+reply_markup = LuaTele.replyMarkup{type = 'keyboard',resize = true,is_personal = true,
+data = {
+{
+{text = 'كارتات اسياسيل ✯',type = 'text'},{text = 'تحويل رصيد زين ✯',type = 'text'},
+},
+{{text = 'رجوع ✖️',type = 'text'},
+},
+}
+}
+send(msg.chat_id,msg.id,"<b>✯︙ اهلا بك عزيزي اختار نوع الدفع لانشاء بوتك</b>","html",true, false, false, true, reply_markup)
 return false 
+end
+if text == "كارتات اسياسيل ✯" then
+local TestText = "✯︙حسنآ ارسل رقم الكارت الان بصوره صحيحه ليقوم مطور البوت بتحقق منه"
+send(msg.chat_id,msg.id,TestText)
+Redis:srem(black.."fw11",msg.sender.user_id)
+end
+if text == "تحويل رصيد زين ✯" then
+local TestText = "✯︙حسنآ ارسل تحويل زين كاش الى هذا الرقم +9647805057139 عند اكمال التحويل ارسل سكرين للتحويل ،  ثم انتظر الموافقه من قبل المطور"
+send(msg.chat_id,msg.id,TestText)
+Redis:srem(black.."fw12",msg.sender.user_id)
+end
+if not Redis:sismember(black.."fw11",msg.sender.user_id) then
+if text and text:match("^(%d+)$")then
+local text1 = text:match("^(%d+)$")
+local TestText = "✯︙حسنا عزيزي تم ارسال الكود الى المطور انتظر للتأكد من الكارت"
+send(msg.chat_id,msg.id,TestText)
+local uu = LuaTele.getUser(msg.sender.user_id)
+if uu.username then
+username = uu.username
+else
+username = ""
+end
+if username == "" then
+sudo_state = "["..uu.first_name.."](tg://user?id="..msg.sender.user_id..")" 
+else
+sudo_state = "[@"..username.."]" 
+end
+local TestText = "✯︙تم ارسال اليك كارت للفحص "..text1.." \n ✯︙"..sudo_state
+send(Sudo_Id,msg.id,TestText)
+Redis:sadd(black.."fw11",msg.sender.user_id)
+end
 end
 if text == "كيفية صنع توكن ؟ ✯" then
 local TestText = "♛ ︙مرحبأ بك عزيزي. ٠  \n كيف اصنع توكن  : \n 1 - نذهب الى بوت فاذر : @BotFather \n 2 - نرسل : ( /newbot ) الى بوت فاذر \n 3 - سوف يطلب منك اسم للبوت أرسل الأسم الذي تريدة للبوت حتى لو مزخرف  \n 4 - يطلب منك يوزر نيم للبوت أرسل أي شيئ فقط من المهم ان يكون نهايه اليوزر نيم BOT كمـثال : ( klanraliBOT ) \n 5 - يعطيك توكن البوت قم بنسخة والذهاب الى( @Gvj1bot) واختار (انشاء بوت مجاني ✯)  ويطلب منك التوكن أرسله و مبروك تم صنع بوتك مجانا .."
