@@ -923,6 +923,14 @@ data = {
 send(msg.chat_id,msg.id,"✯︙ اهلا بك عزيزي في مصنع البوتات","html",true, false, false, true, reply_markup)
 return false 
 end
+if text == "انشاء بوت مدفوع ✯" then
+send(msg.chat_id,msg.id,"@Q0OO0")
+return false 
+end
+if text == "كيفية صنع توكن ؟ ✯" then
+local TestText = "♛ ︙مرحبأ بك عزيزي. ٠  \n كيف اصنع توكن  : \n 1 - نذهب الى بوت فاذر : @BotFather \n 2 - نرسل : ( /newbot ) الى بوت فاذر \n 3 - سوف يطلب منك اسم للبوت أرسل الأسم الذي تريدة للبوت حتى لو مزخرف  \n 4 - يطلب منك يوزر نيم للبوت أرسل أي شيئ فقط من المهم ان يكون نهايه اليوزر نيم BOT كمـثال : ( klanraliBOT ) \n 5 - يعطيك توكن البوت قم بنسخة والذهاب الى( @Gvj1bot) واختار (انشاء بوت مجاني ✯)  ويطلب منك التوكن أرسله و مبروك تم صنع بوتك مجانا .."
+send(msg.chat_id,msg.id,TestText)
+end
 ---making user
 if text and Redis:get(black..msg.sender.user_id.."make:bot") then
 if text == "الغاء ✖️" then
@@ -930,29 +938,7 @@ Redis:del(black..msg.sender.user_id.."make:bot")
 send(msg.chat_id,msg.id,"➢ تم الغاء امر صناعه البوت")
 return false 
 end
-if text == "انشاء بوت مدفوع ✯" then
-Redis:del(black..msg.sender.user_id.."make:bot")
-send(msg.chat_id,msg.id,"@Q0OO0")
-return false 
-end
-if text == "كيفية صنع توكن ؟ ✯" then
-Redis:del(black..msg.sender.user_id.."make:bot")
-send(msg.chat_id,msg.id,
-[[♛ ︙مرحبأ بك عزيزي. ٠ 
 
-كيف اصنع توكن  :
-1 - نذهب الى بوت فاذر : @BotFather
-2 - نرسل : ( /newbot ) الى بوت فاذر
-
-3 - سوف يطلب منك اسم للبوت أرسل الأسم الذي تريدة للبوت حتى لو مزخرف 
-
-4 - يطلب منك يوزر نيم للبوت أرسل أي شيئ فقط من المهم ان يكون نهايه اليوزر نيم BOT كمـثال : ( klanraliBOT ) 
-
-5 - يعطيك توكن البوت قم بنسخة والذهاب الى( @Gvj1bot) واختار (انشاء بوت مجاني ✯)  ويطلب منك التوكن أرسله و مبروك تم صنع بوتك مجانا ..
-]],"md",true
-)
-return false 
-end
 local url = https.request("http://api.telegram.org/bot"..text.."/getme")
 local json = JSON.decode(url)
 if json.ok == true then
