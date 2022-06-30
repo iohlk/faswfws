@@ -911,13 +911,12 @@ data = {
 {text = 'انشاء بوت مدفوع ✯',type = 'text'},{text = 'انشاء بوت مجاني ✯',type = 'text'},
 },
 {
-{text = 'ايقاف/حذف بوت ✯',type = 'text'},{text = 'الغاء ✖️',type = 'text'},
+{text = 'ايقاف/حذف بوت ✯',type = 'text'},{text = 'كيفية صنع توكن ؟ ✯',type = 'text'},
 },
 {
 {text = 'معلومات عن البوت ✯',type = 'text'},{text = 'السورس ✯',type = 'text'},
 },
-{
-{text = 'كيفية صنع توكن ؟ ✯',type = 'text'},
+{{text = 'الغاء ✖️',type = 'text'},
 },
 }
 }
