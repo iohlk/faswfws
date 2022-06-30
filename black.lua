@@ -640,7 +640,7 @@ if text == "➢ البوتات الوهميه" then
 local txx = "قائمه بوتاتك الوهيمه \n"
 for folder in io.popen('ls'):lines() do
 if folder:match('@[%a%d_]') then
-m = Redis:get(folder)
+local m = Redis:get(folder)
 x = {m:match("(.*)&(.*)$(.*)+(.*)")}
 bot_id = x[1]
 botuser = x[2] 
@@ -681,9 +681,12 @@ Redis:del(black..'3ddbots')
 bots = "\nقائمه البوتات\n"
 botat = "\nقائمه البوتات\n"
 for folder in io.popen('ls'):lines() do
-if folder:match('@[%a%d_]') then
-m = Redis:get(folder)
-x = {m:match("(.*)&(.*)$(.*)+(.*)")}
+if folder:match('@(.*)') then
+m1 = Redis:get(folder)
+x = {
+m1:match("(.*)&(.*)$(.*)+(.*)")
+
+}
 bot_id = x[1]
 botuser = x[2] 
 devbot = x[3]
